@@ -74,7 +74,7 @@ double BehaviorPlannerFSM::get_look_ahead_distance(const State& ego_state) {
   auto velocity_mag = utils::magnitude(ego_state.velocity);
   auto accel_mag = utils::magnitude(ego_state.acceleration);
 
-  // TODO-Lookahead: One way to find a reasonable lookahead distance is to find
+  // DONE: TODO-Lookahead: One way to find a reasonable lookahead distance is to find
   // the distance you will need to come to a stop while traveling at speed V and
   // using a comfortable deceleration.
   const double comfortable_deceleration = 2.0; // (2.5 meters / seconds-squared)
@@ -133,15 +133,16 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
       // LOG(INFO) << "BP- original STOP goal at: " << goal.location.x << ", "
       //          << goal.location.y;
 
-      // TODO-goal behind the stopping point: put the goal behind the stopping
+      // DONE: TODO-goal behind the stopping point: put the goal behind the stopping
       // point (i.e the actual goal location) by "_stop_line_buffer". HINTS:
       // remember that we need to go back in the opposite direction of the
       // goal/road, i.e you should use: ang = goal.rotation.yaw + M_PI and then
       // use cosine and sine to get x and y
       //
+      const double stop_line_buffer = 3.0; // 3 meters buffer seems reasonable.
       auto ang = goal.rotation.yaw + M_PI;
-      goal.location.x += 1.0;  // <- Fix This
-      goal.location.y += 1.0;  // <- Fix This
+      goal.location.x += stop_line_buffer * std::cos(ang);
+      goal.location.y += stop_line_buffer * std::sin(ang);
 
       // LOG(INFO) << "BP- new STOP goal at: " << goal.location.x << ", "
       //          << goal.location.y;
