@@ -153,7 +153,7 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
       goal.velocity.z = 0.0;  
 
     } else {
-      // DONe: TODO-goal speed in nominal state: What should be the goal speed now
+      // DONE: TODO-goal speed in nominal state: What should be the goal speed now
       // that we know we are in nominal state and we can continue freely?
       // Remember that the speed is a vector
       // HINT: _speed_limit * std::sin/cos (goal.rotation.yaw);
@@ -167,7 +167,7 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
     // TODO-maintain the same goal when in DECEL_TO_STOP state: Make sure the
     // new goal is the same as the previous goal (_goal). That way we
     // keep/maintain the goal at the stop line.
-       //goal = ;  // <- Fix This
+    goal = _goal;
 
     // TODO: It turns out that when we teleport, the car is always at speed
     // zero. In this the case, as soon as we enter the DECEL_TO_STOP state,
