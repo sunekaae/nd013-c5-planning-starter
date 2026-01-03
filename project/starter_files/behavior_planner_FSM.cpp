@@ -153,12 +153,12 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
       goal.velocity.z = 0.0;  
 
     } else {
-      // TODO-goal speed in nominal state: What should be the goal speed now
+      // DONe: TODO-goal speed in nominal state: What should be the goal speed now
       // that we know we are in nominal state and we can continue freely?
       // Remember that the speed is a vector
       // HINT: _speed_limit * std::sin/cos (goal.rotation.yaw);
-      goal.velocity.x = 1.0;  // <- Fix This
-      goal.velocity.y = 1.0;  // <- Fix This
+      goal.velocity.x = _speed_limit * std::cos (goal.rotation.yaw);
+      goal.velocity.y = _speed_limit * std::sin (goal.rotation.yaw);
       goal.velocity.z = 0;
     }
 
